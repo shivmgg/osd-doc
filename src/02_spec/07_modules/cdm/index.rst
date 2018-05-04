@@ -17,24 +17,12 @@ case of a debug event (breakpoint hit) ``interrupt`` signals are
 asserted. As a reaction the CDM reads a defined address and the
 core-specific part of the CDM generates a debug event.
 
-Of course, other implementations are possible or may be required
-depending on the interface processor implementation.
+In the current implementation, the 32 bit debug registers of or1k are mapped into 16 bit wide OSD registers.
 
-.. todo::
-  The specification is TBD.
+.. toctree::
+   :maxdepth: 1
 
-System Interface
-----------------
+   systemif
+   dbgregisters
 
-The core is connected as a slave on this interface:
 
- Signal | Driver | Width | Description
- ------ | ------ | ----- | -----------
- `stall` | Module | 1 | Stall the core
- `breakpoint` | Core | 1 | Indicates breakpoint
- `strobe` | Module | 1 | Access to the core debug interface
- `ack` | Core | 1 | Complete access to the core
- `adr` | Module | ? | Address of CPU register to access
- `write` | Module | 1 | Write access
- `data_in` | Module | `DATA_WIDTH` | Write data
- `data_out` | Core | `DATA_WIDTH` | Read data
