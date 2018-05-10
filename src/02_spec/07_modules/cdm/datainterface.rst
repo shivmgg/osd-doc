@@ -1,14 +1,13 @@
 Programmer Interface: Data
 --------------------------
 
-The CDM-OR1K module generates only one type of event packets: breakpoint-hit packets.
-Breakpoint-hit packets contain the data in the form of (id,value) tuples.
+The CDM-OR1K module generates only one type of event packets: CPU debug stall packets. Whenever the program counter in the CPU core matches with the watchpoint/breakpoint address, CPU is stalled and this event packet is generated. It notifies the debugger, i.e. GDB about a breakpoint or watchpoint hit.  
+These packets contain the data in the form of ``reason`` payload word.
 
-Breakpoint-hit Packets
-^^^^^^^^^^^^^
+CPU Debug Stall packet
+^^^^^^^^^^^^^^^^^^^^^^
 
-A Breakpoint-hit Packet encapsulates a breakpoint event, which consists of an identifier ``id`` and an associated value (breakpoint address/value) ``value``.
-
+A CPU Debug Stall Packet encapsulates a breakpoint or watchpoint event. 
 The following fields in the header of the DI packet are set:
 
 - ``FLAGS.TYPE`` is set to ``EVENT``
@@ -24,14 +23,6 @@ The following fields in the header of the DI packet are set:
     - description
 
   * - 0
-    - ``id``
-
-  * - 1
-    - ``value[15:0]``
-
-  * - 2
-    - ``value[31:16]``
-
-
-
+    - ``reason``: indicates the cause of event generation. 
+	         
 
