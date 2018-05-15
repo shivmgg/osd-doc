@@ -39,49 +39,7 @@ The Control Debug Module of OR1K CPU core implements the :ref:`sec:spec:api:base
     - 0x0000
 
 Additionally, the CDM-OR1K module implements the following registers. 
-Registers in the range 0x0400-0x443 are forwarded to corresponding registers of the attached or1k CPU core. Each or1k debug register is of 32 bits and is mapped as two 16-bit wide registers.  
-
-.. tabularcolumns:: |p{\dimexpr 0.20\linewidth-2\tabcolsep}|p{\dimexpr 0.40\linewidth-2\tabcolsep}|p{\dimexpr 0.40\linewidth-2\tabcolsep}|
-.. flat-table:: List of All Debug Registers  
-  :widths: 2 4 4    
-  :header-rows: 1
-
-  * - Reg Index
-    - Reg Name
-    - Reg Description
-
-  * - 0-7
-    - DVR0-DVR7
-    - Debug Value Register
-
-  * - 8-15
-    - DCR0-DCR7
-    - Debug Control Register
-
-  * - 16
-    - DMR1
-    - Debug Mode Register 1
-
-  * - 17
-    - DMR2
-    - Debug Mode Register 2
-
-  * - 18-19
-    - DWCR0-DWCR1
-    - Debug Watchpoint Counter Register
-
-  * - 20
-    - DSR
-    - Debug Stop Register
-
-  * - 21
-    - DRR
-    - Debug Reason Register
-
-Register Addressing Scheme
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-In or1k architecture, a 16-bit SPR (Special Purpose Register) address is made of 5-bit group index (bits 15-11) and 11-bit register index (bits 10-0). OR1K debug registers belong to Group 6 SPRs. 
+Registers in the range 0x0400-0x443 are forwarded to corresponding registers of the attached OR1k CPU core. Each OR1k debug register is of 32-bit wide and is mapped as two 16-bit wide registers.  
 
 .. tabularcolumns:: |p{\dimexpr 0.40\linewidth-2\tabcolsep}|p{\dimexpr 0.60\linewidth-2\tabcolsep}|
 .. flat-table:: CDM-OR1K register address scheme
@@ -103,9 +61,13 @@ In or1k architecture, a 16-bit SPR (Special Purpose Register) address is made of
   :widths: 2 2 6
   :header-rows: 1
 
-  * - Address
-    - Name
-    - Description
+  * - address
+    - name
+    - description
+
+  * - 0x0200
+    - ``OR1K_DWRT_UPDATE``
+    - Writing 1 to bit 0 commits data written to the registers of the CPU core.
 
   * - 0x0400
     - ``OR1K_DVR0_L``
@@ -283,9 +245,6 @@ In or1k architecture, a 16-bit SPR (Special Purpose Register) address is made of
     - ``OR1K_DRR_H``
     - Bits [31:16] of Debug Reason Register
 
-  * - 0x0444
-    - ``OR1K_DWRT_UPDATE``
-    - Writing 1 to bit 0 commits data written to the registers of the CPU core.
  
 
 Debug Value Registers (``OR1K_DVR*_*``)
@@ -294,7 +253,8 @@ Debug Value Registers (``OR1K_DVR*_*``)
 - Address: *see full register map above*
 - Reset Value: 0
 - Access: read-write
-- More details: https://openrisc.io/or1k.html#__RefHeading__504813_595890882
+- Register Index: 0-7
+- More details: https://openrisc.io/or1k.html#__RefHeading__504813_595890882 (Section 10.2)
 
 The debug value registers (DVR0-DVR7) are 32-bit special-purpose supervisor-level registers programmed with the watchpoint/breakpoint addresses or data.
 
@@ -304,7 +264,8 @@ Debug Control Registers (``OR1K_DCR*_*``)
 - Address: *see full register map above*
 - Reset Value: 0
 - Access: *see below*
-- More details: https://openrisc.io/or1k.html#__RefHeading__504815_595890882
+- Register Index: 8-15
+- More details: https://openrisc.io/or1k.html#__RefHeading__504815_595890882 (Section 10.3)
 
 The debug control registers (DCR0-DCR7) are 32-bit special-purpose supervisor-level registers.
 The DCRs are programmed with the watchpoint settings that define how DVRs are compared to the instruction fetch or load/store address or to the load/store data.
@@ -351,10 +312,11 @@ Debug Mode Register1 (``OR1K_DMR1_*``)
 - Address: *see full register map above*
 - Reset Value: X (bits: 31-25) | 0 (bits: 23-0)
 - Access: read (bits: 31-25) | read-write (bits: 23-0)
-- More details: https://openrisc.io/or1k.html#__RefHeading__504817_595890882
+- Register Index: 16
+- More details: https://openrisc.io/or1k.html#__RefHeading__504817_595890882 (Section 10.4)
 
-The debug mode register 1 is a 32-bit special-purpose supervisor-level register programmed with the watchpoint/breakpoint settings that define
-how DVR/DCR pairs operate.
+The debug mode register 1 is a 32-bit special-purpose supervisor-level register.
+It is programmed with the watchpoint/breakpoint settings that define how DVR/DCR pairs operate.
 
 Debug Mode Register2 (``OR1K_DMR2_*``)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -362,10 +324,12 @@ Debug Mode Register2 (``OR1K_DMR2_*``)
 - Address: *see full register map above*
 - Reset Value: 0
 - Access: read (bits: 31-22) | read-write (bits: 21-0)
-- More details: https://openrisc.io/or1k.html#__RefHeading__504819_595890882
+- Register Index: 17
+- More details: https://openrisc.io/or1k.html#__RefHeading__504819_595890882 (Section 10.5)
 
 The debug mode register 1 is a 32-bit special-purpose supervisor-level register.
-The DMR2 is programmed with the watchpoint/breakpoint settings that define which watchpoints generate a breakpoint and which watchpoint counters are enabled.
+The DMR2 is programmed with the watchpoint/breakpoint settings that define 
+which watchpoints generate a breakpoint and which watchpoint counters are enabled.
 
 
 Debug Watchpoint Counter Registers (``OR1K_DWCR*_*``)
@@ -374,10 +338,12 @@ Debug Watchpoint Counter Registers (``OR1K_DWCR*_*``)
 - Address: *see full register map above*
 - Reset Value: 0
 - Access: read-write
-- More details: https://openrisc.io/or1k.html#__RefHeading__504821_595890882
+- Register Index: 18-19
+- More details: https://openrisc.io/or1k.html#__RefHeading__504821_595890882 (Section 10.6)
 
 The debug watchpoint counter registers (DWCR0-DWCR1) are 32-bit special-purpose supervisor-level registers.
-The DWCRs contain 16-bit counters that count watchpoints programmed in the DMR and 16-bit match values. When a counter reaches the match value, a watchpoint is generated.
+The DWCRs contain 16-bit counters that count watchpoints programmed in the DMR and 16-bit match values. 
+When a counter reaches the match value, a watchpoint is generated.
 
 
 Debug Stop Register (``OR1K_DSR_*``)
@@ -386,10 +352,12 @@ Debug Stop Register (``OR1K_DSR_*``)
 - Address: *see full register map above*
 - Reset Value: X (bits: 31-14) | 0 (bits: 13-0)
 - Access: read (bits: 31-14) | read-write (bits: 13-0)
-- More details: https://openrisc.io/or1k.html#__RefHeading__504823_595890882
+- Register Index: 20
+- More details: https://openrisc.io/or1k.html#__RefHeading__504823_595890882 (Section 10.7)
 
 The debug stop counter registers are 32-bit special-purpose supervisor-level registers.
-The DSR specifies which exceptions cause the core to stop the execution of the exception handler and turn over control to development interface.
+The DSR specifies which exceptions cause the core to stop the execution of the exception 
+handler and turn over control to development interface.
 
 
 Debug Reason Register (``OR1K_DRR_*``)
@@ -398,19 +366,32 @@ Debug Reason Register (``OR1K_DRR_*``)
 - Address: *see full register map above*
 - Reset Value: X (bits: 31-14) | 0 (bits: 13-0)
 - Access: read (bits: 31-14) | read-write (bits: 13-0)
-- More details: https://openrisc.io/or1k.html#__RefHeading__504825_595890882
+- Register Index: 21
+- More details: https://openrisc.io/or1k.html#__RefHeading__504825_595890882 (Section 10.8)
 
 The debug reason counter registers are 32-bit special-purpose supervisor-level registers.
-The DRR specifies which event caused the core to stop the execution of program flow and turned control over to the development interface.
+The DRR specifies which event caused the core to stop the execution of program flow and 
+turned control over to the development interface.
 
 
 Debug Update Write Register (``OR1K_DWRT_UPDATE``)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- Address: 0x0444
+- Address: 0x200
 - Reset Value: 0
 - Access: read-write 
 
 Writing 1 to bit 0 commits data written to the registers of the CPU core.
 
+
+Register Read/Write Access Rules
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- For reading registers:
+  Registers can be read only when the CPU is stalled. 
+  Data is read from the registers in big-endian format, i.e. MSB followed by LSB.
+
+- For writing registers:
+  Data is stored in the registers in big-endian format, i.e MSB followed by LSB.
+  Writing 1 to OR1K_DWRT_UPDATE's bit 0 commits data written to the registers of the CPU core.
 
