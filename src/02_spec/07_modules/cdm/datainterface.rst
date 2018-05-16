@@ -1,7 +1,7 @@
 Programmer Interface: Data
 --------------------------
 
-The CDM-OR1K module generates only one type of event packets: CPU debug stall packets. 
+The CDM-OR1K module generates only one type of event packets: **CPU debug stall packets**. 
 These packets contain the data in the form of ``reason`` payload word.
 
 CPU Debug Stall packet
@@ -27,7 +27,10 @@ The following fields in the header of the DI packet are set:
     - description
 
   * - 0
-    - ``reason``:   Indicates the cause of the event generation. It can be a breakpoint or watchpoint hit. 
+    - ``reason``
+   
+      Indicates the cause of the event generation. 
+      It can be a breakpoint or watchpoint hit. 
 		      
 	         
 

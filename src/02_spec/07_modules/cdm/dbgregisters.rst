@@ -39,7 +39,7 @@ The Control Debug Module of OR1K CPU core implements the :ref:`sec:spec:api:base
     - 0x0000
 
 Additionally, the CDM-OR1K module implements the following registers. 
-Registers in the range 0x0400-0x443 are forwarded to corresponding registers of the attached OR1k CPU core. Each OR1k debug register is of 32-bit wide and is mapped as two 16-bit wide registers.  
+Registers in the range **0x0400-0x443** are forwarded to corresponding registers of the attached OR1k CPU core. Each OR1k debug register is 32-bit wide and is mapped as two 16-bit wide registers.  
 
 .. tabularcolumns:: |p{\dimexpr 0.40\linewidth-2\tabcolsep}|p{\dimexpr 0.60\linewidth-2\tabcolsep}|
 .. flat-table:: CDM-OR1K register address scheme
@@ -387,11 +387,12 @@ Writing 1 to bit 0 commits data written to the registers of the CPU core.
 Register Read/Write Access Rules
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- For reading registers:
+- **For reading registers**:
   Registers can be read only when the CPU is stalled. 
   Data is read from the registers in big-endian format, i.e. MSB followed by LSB.
 
-- For writing registers:
+
+- **For writing registers**:
   Data is stored in the registers in big-endian format, i.e MSB followed by LSB.
   Writing 1 to OR1K_DWRT_UPDATE's bit 0 commits data written to the registers of the CPU core.
 
