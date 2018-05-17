@@ -39,7 +39,8 @@ The Control Debug Module of OR1K CPU core implements the :ref:`sec:spec:api:base
     - 0x0000
 
 Additionally, the CDM-OR1K module implements the following registers. 
-Registers in the range **0x0400-0x443** are forwarded to corresponding registers of the attached OR1k CPU core. Each OR1k debug register is 32-bit wide and is mapped as two 16-bit wide registers.  
+Registers in the range **0x0400-0x443** are forwarded to corresponding registers of the attached OR1k CPU core. 
+Each OR1k debug register is 32-bit wide and is mapped as two 16-bit wide registers.  
 
 .. tabularcolumns:: |p{\dimexpr 0.40\linewidth-2\tabcolsep}|p{\dimexpr 0.60\linewidth-2\tabcolsep}|
 .. flat-table:: CDM-OR1K register address scheme
@@ -328,8 +329,7 @@ Debug Mode Register2 (``OR1K_DMR2_*``)
 - More details: https://openrisc.io/or1k.html#__RefHeading__504819_595890882 (Section 10.5)
 
 The debug mode register 1 is a 32-bit special-purpose supervisor-level register.
-The DMR2 is programmed with the watchpoint/breakpoint settings that define 
-which watchpoints generate a breakpoint and which watchpoint counters are enabled.
+The DMR2 is programmed with the watchpoint/breakpoint settings that define which watchpoints generate a breakpoint and which watchpoint counters are enabled.
 
 
 Debug Watchpoint Counter Registers (``OR1K_DWCR*_*``)
@@ -356,8 +356,7 @@ Debug Stop Register (``OR1K_DSR_*``)
 - More details: https://openrisc.io/or1k.html#__RefHeading__504823_595890882 (Section 10.7)
 
 The debug stop counter registers are 32-bit special-purpose supervisor-level registers.
-The DSR specifies which exceptions cause the core to stop the execution of the exception 
-handler and turn over control to development interface.
+The DSR specifies which exceptions cause the core to stop the execution of the exception handler and turn over control to development interface.
 
 
 Debug Reason Register (``OR1K_DRR_*``)
@@ -370,8 +369,7 @@ Debug Reason Register (``OR1K_DRR_*``)
 - More details: https://openrisc.io/or1k.html#__RefHeading__504825_595890882 (Section 10.8)
 
 The debug reason counter registers are 32-bit special-purpose supervisor-level registers.
-The DRR specifies which event caused the core to stop the execution of program flow and 
-turned control over to the development interface.
+The DRR specifies which event caused the core to stop the execution of program flow and turned control over to the development interface.
 
 
 Debug Update Write Register (``OR1K_DWRT_UPDATE``)
@@ -390,7 +388,6 @@ Register Read/Write Access Rules
 - **For reading registers**:
   Registers can be read only when the CPU is stalled. 
   Data is read from the registers in big-endian format, i.e. MSB followed by LSB.
-
 
 - **For writing registers**:
   Data is stored in the registers in big-endian format, i.e MSB followed by LSB.

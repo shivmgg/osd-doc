@@ -8,8 +8,7 @@ CPU Debug Stall packet
 ^^^^^^^^^^^^^^^^^^^^^^
 
 A CPU Debug Stall Packet encapsulates a breakpoint or watchpoint event. 
-Whenever the program counter in the CPU core matches with the watchpoint/breakpoint address, 
-CPU is stalled and this event packet is generated. 
+Whenever the program counter in the CPU core matches with the watchpoint/breakpoint address, CPU is stalled and this event packet is generated. 
 It notifies the debugger, i.e. GDB about a breakpoint or watchpoint hit.  
 
 The following fields in the header of the DI packet are set:
@@ -29,8 +28,13 @@ The following fields in the header of the DI packet are set:
   * - 0
     - ``reason``
    
-      Indicates the cause of the event generation. 
-      It can be a breakpoint or watchpoint hit. 
+      Indicates the cause of the event generation.
+      It can be a breakpoint or watchpoint hit.
+      Bits 16-15 indicates the state of the event generation.
+      '10' indicates watchpoint hit and '11' indicates breakpoint hit.
+      
+      
+       
 		      
 	         
 
