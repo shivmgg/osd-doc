@@ -380,16 +380,3 @@ Debug Update Write Register (``OR1K_DWRT_UPDATE``)
 - Access: read-write 
 
 Writing 1 to bit 0 commits data written to the registers of the CPU core.
-
-
-Register Read/Write Access Rules
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-- **For reading registers**:
-  Registers can be read only when the CPU is stalled. 
-  Data is read from the registers in big-endian format, i.e. MSB followed by LSB.
-
-- **For writing registers**:
-  Data is stored in the registers in big-endian format, i.e MSB followed by LSB.
-  Writing 1 to OR1K_DWRT_UPDATE's bit 0 commits data written to the registers of the CPU core.
-
