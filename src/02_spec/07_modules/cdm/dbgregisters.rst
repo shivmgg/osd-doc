@@ -96,3 +96,4 @@ CDM Address Register (``CDM_REG_ADDR``)
 
 The register's bits [14:0] contain the corresponding SPR address bits as specified in the core. 
 
+

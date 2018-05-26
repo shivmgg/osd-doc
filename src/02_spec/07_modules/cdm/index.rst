@@ -1,5 +1,5 @@
-Core Debug Module (CDM)
-=======================
+Core Debug Module for OpenRISC CPU Core (CDM-OR1K)
+===================================================
 
 .. figure:: ../../img/debug_module_cdm_overview.*
    :alt: High Level overview 
@@ -13,7 +13,6 @@ The run-control debugger, i.e. GDB sends register access requests to the module 
 The module then transfers the corresponding data values from OSD specific registers to the CPU core over the debugging signals specified in :doc:`System Interface <systemif>`. 
 The System Interface is designed to connect to an OR1K processor and other CPU cores having same debug ports.
  
-
 In case of a debug event (CPU debug stall event), the CPU stalls and the control passes to GDB. 
 The module reads/writes a defined address as per the request made by GDB.
 
