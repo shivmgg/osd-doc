@@ -1,40 +1,27 @@
 Core Debug Module (CDM)
 =======================
 
-.. figure:: ../../img/debug_module_cdm.*
-   :alt: Core Debug Module
+.. figure:: ../../img/debug_module_cdm_overview.*
+   :alt: High Level overview 
    :name: fig:debug_module_cdm
 
-   Core Debug Module
+   High Level Overview 
 
-The core debug module implements run-control debugging for a processor
-core. The implementation is to a certain degree core-dependent, but a
-generic implementation is sketched in @fig:debug\_module\_cdm. It has a
-memory mapped interface as described above. The debug control, status
-information and core register are mapped in memory regions. The
-run-control debugger (e.g., gdb) then sends register access requests. In
-case of a debug event (breakpoint hit) ``interrupt`` signals are
-asserted. As a reaction the CDM reads a defined address and the
-core-specific part of the CDM generates a debug event.
+The core debug module implements run-control debugging for the CPU core. 
+The module has a memory mapped interface. CDM maps each Special-Purpose Register of the CPU core into CDM address spaces as described above.  
+The run-control debugger, i.e. GDB sends register access requests to the module through OSD debug network. 
+The module then transfers the corresponding data values from OSD specific registers to the CPU core over the debugging signals specified in :doc:`System Interface <systemif>`. 
+The System Interface is designed to connect to an OR1K processor and other CPU cores having same debug ports.
+ 
 
-Of course, other implementations are possible or may be required
-depending on the interface processor implementation.
+In case of a debug event (CPU debug stall event), the CPU stalls and the control passes to GDB. 
+The module reads/writes a defined address as per the request made by GDB.
 
-.. todo::
-  The specification is TBD.
 
-System Interface
-----------------
+.. toctree::
+   :maxdepth: 1
 
-The core is connected as a slave on this interface:
+   systemif
+   dbgregisters
+   datainterface
 
- Signal | Driver | Width | Description
- ------ | ------ | ----- | -----------
- `stall` | Module | 1 | Stall the core
- `breakpoint` | Core | 1 | Indicates breakpoint
- `strobe` | Module | 1 | Access to the core debug interface
- `ack` | Core | 1 | Complete access to the core
- `adr` | Module | ? | Address of CPU register to access
- `write` | Module | 1 | Write access
- `data_in` | Module | `DATA_WIDTH` | Write data
- `data_out` | Core | `DATA_WIDTH` | Read data
