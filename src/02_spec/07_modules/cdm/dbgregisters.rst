@@ -56,11 +56,11 @@ Registers in the range **0x8000-0xFFFF** are forwarded to the corresponding spec
 
   * - 0x0201
     - ``CORE_REG_UPPER``
-    - Bit 0 contains MSB (most significant bit) of the corresponding SPR address in the CPU core.
+    - Bits [MSB:15]  (most significant bits) of the corresponding SPR address in the attached CPU core.
 
-  * - 0x8000 - 0xFFFF
+  * - 0x8000-0xFFFF
     - ``CDM_REG_ADDR``
-    - Bits [14:0] of the corresponding SPR address in the CPU core. 
+    - Bits [31:0] of the corresponding SPR data in the attached CPU core. 
 
 
 The address of the SPR (Special-Purpose Register) in the CPU core can be determined by the following operation:
@@ -76,7 +76,8 @@ Core Stall Register (``CORE_REG_STALL``)
 - Reset Value: 0
 - Access: read-write
 
-The register is used to stall the CPU core. Setting bit 0 as logic '1' causes the CPU core to stall.
+The Core Stall Register is used to stall the CPU core. 
+Setting bit 0 as logic '1' causes the CPU core to stall.
 
 Core Upper Register (``CORE_REG_UPPER``)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -85,7 +86,7 @@ Core Upper Register (``CORE_REG_UPPER``)
 - Reset Value: 0
 - Access: read-write
 
-The register contains MSB of the SPR address as specified in the core. 
+The Core Upper Register contains [MSB:15] of the SPR address that needs to be accessed. 
 
 CDM Address Register (``CDM_REG_ADDR``)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -94,5 +95,6 @@ CDM Address Register (``CDM_REG_ADDR``)
 - Reset Value: *implementation specific*
 - Access: *implementation specific*
 
-The register's bits [14:0] contain the corresponding SPR address bits as specified in the core. 
+The CDM Address Register bits [14:0] correspond to the SPR address bits [14:0] that needs to be accessed. 
+The register contains the data stored at the SPR address as computed by the above operation.
 
